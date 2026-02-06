@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outbound Arrows - Pixel</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f0e8;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="arrows"></canvas>
+<script>
+const canvas = document.getElementById('arrows');
+const ctx = canvas.getContext('2d');
+
+// Pixel grid size - larger = chunkier pixels
+const GRID = 6;
+
+let W, H, CX, CY, CLEAR_RADIUS;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  CX = W / 2;
+  CY = H / 2;
+  CLEAR_RADIUS = Math.min(W, H) * 0.25;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Snap to pixel grid
+function snap(v) {
+  return Math.round(v / GRID) * GRID;
+}
+
+const arrows = [];
+const MAX = 20;
+let spawnTimer = 0;
+const SPAWN_INTERVAL = 25;
+
+function spawnArrow() {
+  const angle = Math.random() * Math.PI * 2;
+  const speed = 0.8 + Math.random() * 0.6;
+  const maxLength = 120 + Math.random() * 140;
+  const thickness = GRID;
+
+  const curveType = Math.random();
+  let angularVel;
+  if (curveType < 0.3) {
+    angularVel = 0;
+  } else if (curveType < 0.7) {
+    angularVel = (Math.random() > 0.5 ? 1 : -1) * (0.004 + Math.random() * 0.006);
+  } else {
+    angularVel = (Math.random() > 0.5 ? 1 : -1) * (0.002 + Math.random() * 0.004);
+  }
+
+  const startRadius = CLEAR_RADIUS + Math.random() * 10;
+
+  arrows.push({
+    originX: CX + Math.cos(angle) * startRadius,
+    originY: CY + Math.sin(angle) * startRadius,
+    currentAngle: angle,
+    angularVel: angularVel,
+    speed: speed,
+    maxLength: maxLength,
+    thickness: thickness,
+    opacity: 0.8 + Math.random() * 0.2,
+    life: 0,
+    maxLife: 180 + Math.random() * 120,
+    path: [],
+    totalArcLen: 0,
+    pathLengths: [],
+  });
+}
+
+// Draw a single pixel block
+function drawBlock(x, y, size) {
+  ctx.fillRect(snap(x) - size / 2, snap(y) - size / 2, size, size);
+}
+
+// Bresenham line with snapped pixel blocks
+function drawPixelLine(x0, y0, x1, y1, size) {
+  let sx0 = snap(x0), sy0 = snap(y0);
+  let sx1 = snap(x1), sy1 = snap(y1);
+  const dx = Math.abs(sx1 - sx0);
+  const dy = Math.abs(sy1 - sy0);
+  const stepX = sx0 < sx1 ? GRID : -GRID;
+  const stepY = sy0 < sy1 ? GRID : -GRID;
+  let err = dx - dy;
+
+  for (let i = 0; i < 200; i++) { // safety limit
+    ctx.fillRect(sx0 - size / 2, sy0 - size / 2, size, size);
+    if (sx0 === sx1 && sy0 === sy1) break;
+    const e2 = 2 * err;
+    if (e2 > -dy) { err -= dy; sx0 += stepX; }
+    if (e2 < dx) { err += dx; sy0 += stepY; }
+  }
+}
+
+// Pixelated triangle arrowhead
+function drawArrowHead(x, y, angle, size) {
+  const rows = Math.max(2, Math.round(size / GRID));
+  for (let r = 0; r < rows; r++) {
+    const along = -r * GRID;
+    const spread = r;
+    for (let s = -spread; s <= spread; s++) {
+      const bx = x + Math.cos(angle) * along - Math.sin(angle) * s * GRID;
+      const by = y + Math.sin(angle) * along + Math.cos(angle) * s * GRID;
+      ctx.fillRect(snap(bx) - GRID / 2, snap(by) - GRID / 2, GRID, GRID);
+    }
+  }
+}
+
+function drawArrow(a) {
+  const progress = a.life / a.maxLife;
+  const totalPts = a.path.length;
+  if (totalPts < 2) return;
+
+  let alpha;
+  if (progress < 0.12) {
+    alpha = (progress / 0.12) * a.opacity;
+  } else if (progress > 0.6) {
+    alpha = ((1 - progress) / 0.4) * a.opacity;
+  } else {
+    alpha = a.opacity;
+  }
+
+  const visibleStart = Math.max(0, a.totalArcLen - a.maxLength);
+  let startIdx = 0;
+  for (let i = 0; i < totalPts; i++) {
+    if (a.pathLengths[i] >= visibleStart) {
+      startIdx = i;
+      break;
+    }
+  }
+
+  // Sample path at grid intervals to avoid overdraw
+  const visiblePts = [];
+  let lastSnapX = null, lastSnapY = null;
+  for (let i = startIdx; i < totalPts; i++) {
+    const sx = snap(a.path[i].x);
+    const sy = snap(a.path[i].y);
+    if (sx !== lastSnapX || sy !== lastSnapY) {
+      visiblePts.push({ x: a.path[i].x, y: a.path[i].y });
+      lastSnapX = sx;
+      lastSnapY = sy;
+    }
+  }
+
+  if (visiblePts.length < 2) return;
+  const visibleLen = a.totalArcLen - visibleStart;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = '#1a1a1a';
+
+  // Draw pixel line segments
+  for (let i = 0; i < visiblePts.length - 1; i++) {
+    drawPixelLine(
+      visiblePts[i].x, visiblePts[i].y,
+      visiblePts[i + 1].x, visiblePts[i + 1].y,
+      GRID
+    );
+  }
+
+  // Triangle arrowhead at tip
+  const head = visiblePts[visiblePts.length - 1];
+  const prev = visiblePts[Math.max(0, visiblePts.length - 4)];
+  const tipAngle = Math.atan2(head.y - prev.y, head.x - prev.x);
+  const headSize = Math.min(visibleLen * 0.3, GRID * 4);
+
+  if (headSize > GRID) {
+    drawArrowHead(head.x, head.y, tipAngle, headSize);
+  }
+
+  ctx.restore();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+
+  spawnTimer++;
+  if (spawnTimer >= SPAWN_INTERVAL && arrows.length < MAX) {
+    spawnArrow();
+    spawnTimer = 0;
+  }
+
+  for (let i = arrows.length - 1; i >= 0; i--) {
+    const a = arrows[i];
+    a.currentAngle += a.angularVel;
+
+    const last = a.path.length > 0
+      ? a.path[a.path.length - 1]
+      : { x: a.originX, y: a.originY };
+
+    const nx = last.x + Math.cos(a.currentAngle) * a.speed;
+    const ny = last.y + Math.sin(a.currentAngle) * a.speed;
+
+    const segLen = Math.hypot(nx - last.x, ny - last.y);
+    a.totalArcLen += segLen;
+    a.path.push({ x: nx, y: ny });
+    a.pathLengths.push(a.totalArcLen);
+
+    a.life++;
+
+    if (a.life >= a.maxLife) {
+      arrows.splice(i, 1);
+      continue;
+    }
+
+    drawArrow(a);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>

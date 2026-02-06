@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controlled Arrows</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f0e8;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="arrows"></canvas>
+<script>
+const canvas = document.getElementById('arrows');
+const ctx = canvas.getContext('2d');
+
+const GRID = 6;
+
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function snap(v) {
+  return Math.round(v / GRID) * GRID;
+}
+
+const arrows = [];
+const ROWS = 7;
+const SPAWN_INTERVAL = 40;
+let spawnTimer = 0;
+
+function spawnArrow() {
+  // Pick a row (evenly distributed vertically)
+  const rowIndex = Math.floor(Math.random() * ROWS);
+  const rowSpacing = H / (ROWS + 1);
+  const y = rowSpacing * (rowIndex + 1) + (Math.random() - 0.5) * 20;
+
+  const speed = 1.2 + Math.random() * 0.8;
+  const maxLength = 80 + Math.random() * 60;
+
+  arrows.push({
+    x: -50,
+    y: y,
+    speed: speed,
+    maxLength: maxLength,
+    thickness: GRID,
+    opacity: 0.8 + Math.random() * 0.2,
+    life: 0,
+    growPhase: true,
+    length: 0,
+  });
+}
+
+function drawPixelLine(x0, y0, x1, y1, size) {
+  let sx0 = snap(x0), sy0 = snap(y0);
+  let sx1 = snap(x1), sy1 = snap(y1);
+  const dx = Math.abs(sx1 - sx0);
+  const dy = Math.abs(sy1 - sy0);
+  const stepX = sx0 < sx1 ? GRID : -GRID;
+  const stepY = sy0 < sy1 ? GRID : -GRID;
+  let err = dx - dy;
+
+  for (let i = 0; i < 300; i++) {
+    ctx.fillRect(sx0 - size / 2, sy0 - size / 2, size, size);
+    if (sx0 === sx1 && sy0 === sy1) break;
+    const e2 = 2 * err;
+    if (e2 > -dy) { err -= dy; sx0 += stepX; }
+    if (e2 < dx) { err += dx; sy0 += stepY; }
+  }
+}
+
+function drawArrowHead(x, y, size) {
+  // Triangle pointing right
+  const rows = Math.max(2, Math.round(size / GRID));
+  for (let r = 0; r < rows; r++) {
+    const along = -r * GRID;
+    const spread = r;
+    for (let s = -spread; s <= spread; s++) {
+      const bx = x + along;
+      const by = y + s * GRID;
+      ctx.fillRect(snap(bx) - GRID / 2, snap(by) - GRID / 2, GRID, GRID);
+    }
+  }
+}
+
+function drawArrow(a) {
+  // Fade in at start, fade out at end (when exiting screen)
+  let alpha = a.opacity;
+  if (a.life < 15) {
+    alpha = (a.life / 15) * a.opacity;
+  }
+  if (a.x > W - 100) {
+    alpha = ((W - a.x) / 100) * a.opacity;
+  }
+
+  const tailX = a.x - a.length;
+  const headX = a.x;
+
+  if (a.length < GRID) return;
+
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, alpha);
+  ctx.fillStyle = '#1a1a1a';
+
+  // Draw shaft
+  drawPixelLine(tailX, a.y, headX, a.y, GRID);
+
+  // Draw arrowhead
+  const headSize = Math.min(a.length * 0.3, GRID * 3);
+  if (headSize > GRID) {
+    drawArrowHead(headX, a.y, headSize);
+  }
+
+  ctx.restore();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+
+  spawnTimer++;
+  if (spawnTimer >= SPAWN_INTERVAL) {
+    spawnArrow();
+    spawnTimer = 0;
+  }
+
+  for (let i = arrows.length - 1; i >= 0; i--) {
+    const a = arrows[i];
+
+    // Move head forward
+    a.x += a.speed;
+    a.life++;
+
+    // Grow length until max
+    if (a.growPhase) {
+      a.length += a.speed;
+      if (a.length >= a.maxLength) {
+        a.length = a.maxLength;
+        a.growPhase = false;
+      }
+    }
+
+    // Remove when fully off screen
+    if (a.x - a.length > W + 50) {
+      arrows.splice(i, 1);
+      continue;
+    }
+
+    drawArrow(a);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>

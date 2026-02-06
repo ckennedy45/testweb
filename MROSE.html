@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Research</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f0e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<canvas id="rose"></canvas>
+<script>
+const canvas = document.getElementById('rose');
+const ctx = canvas.getContext('2d');
+
+const SIZE = 100;
+
+canvas.width = SIZE;
+canvas.height = SIZE;
+
+const CX = SIZE / 2;
+const CY = SIZE / 2;
+const RADIUS = 32;
+
+// Maurer rose parameters - intricate folding pattern
+const n = 4;    // four-fold symmetry
+const d = 119;  // prime-ish number creates complex layered look
+
+let drawProgress = 0;
+const TOTAL_POINTS = 360;  // full cycle for complexity
+const DRAW_SPEED = 0.8;   // much slower
+
+function getMaurerPoint(i) {
+  const k = i * d * Math.PI / 180;
+  const r = RADIUS * Math.sin(n * k);
+  return {
+    x: CX + r * Math.cos(k),
+    y: CY + r * Math.sin(k)
+  };
+}
+
+function animate() {
+  ctx.clearRect(0, 0, SIZE, SIZE);
+  
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 0.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  
+  // Draw the Maurer rose up to current progress
+  const pointsToDraw = Math.min(Math.floor(drawProgress), TOTAL_POINTS);
+  
+  if (pointsToDraw > 1) {
+    ctx.beginPath();
+    const start = getMaurerPoint(0);
+    ctx.moveTo(start.x, start.y);
+    
+    for (let i = 1; i < pointsToDraw; i++) {
+      const p = getMaurerPoint(i);
+      ctx.lineTo(p.x, p.y);
+    }
+    
+    ctx.globalAlpha = 0.6;
+    ctx.stroke();
+  }
+  
+  ctx.globalAlpha = 1;
+  
+  // Advance progress
+  drawProgress += DRAW_SPEED;
+  
+  // Loop: reset after completing + pause
+  if (drawProgress > TOTAL_POINTS + 90) {
+    drawProgress = 0;
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>
