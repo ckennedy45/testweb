@@ -127,12 +127,12 @@
         }
         
         .hero {
-            min-height: 65vh;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 4rem 2.5rem 2rem;
+            padding: 0.5rem 2.5rem 0.5rem;
             position: relative;
         }
         
@@ -141,15 +141,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 900px;
-            height: 650px;
+            width: 750px;
+            height: 480px;
         }
         
         #arrows-canvas {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 180%; height: 160%;
+            width: 140%; height: 120%;
             will-change: transform;
             z-index: 1;
         }
@@ -164,7 +164,7 @@
         
         .hero-headline {
             font-family: 'Press Start 2P', cursive;
-            font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+            font-size: clamp(1.3rem, 2.6vw, 1.75rem);
             line-height: 2.2;
             letter-spacing: 0.02em;
             color: var(--accent);
@@ -182,7 +182,7 @@
 
         /* ===================== HOOK ===================== */
         .hook {
-            padding: 5rem 2.5rem 5rem;
+            padding: 2.5rem 2.5rem 2.5rem;
             position: relative;
             z-index: 3;
         }
@@ -221,7 +221,7 @@
         }
 
         /* ===================== PILLARS ===================== */
-        .pillars { padding: 5rem 2.5rem 5rem; }
+        .pillars { padding: 2.5rem 2.5rem 5rem; }
         .pillars-header {
             max-width: 1100px;
             margin: 0 auto 3.5rem;
@@ -584,13 +584,13 @@
             .testimonial-stat { text-align: left; }
         }
         @media (max-width: 900px) {
-            .hero-visual { width: 600px; height: 500px; }
+            .hero-visual { width: 500px; height: 380px; }
             .hero-headline { font-size: 1rem; }
             .page-frame { border-left: none; border-right: none; }
             .header-inner { border-left: none; border-right: none; }
         }
         @media (max-width: 600px) {
-            .hero-visual { width: 380px; height: 350px; }
+            .hero-visual { width: 320px; height: 260px; }
             .hero-headline { font-size: 0.6rem; }
             .page-footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
@@ -600,7 +600,7 @@
     <header>
         <div class="header-inner">
             <a href="#" class="logo">SPURINTEL</a>
-            <a href="#contact" class="nav-cta">Contact us</a>
+            <a href="contact.html" class="nav-cta">Contact us</a>
         </div>
     </header>
 
@@ -622,7 +622,7 @@
         <section class="hook fade-in">
             <div class="hook-inner">
                 <div class="hook-accent"></div>
-                <h2>Your prospects can see a template from a mile away.</h2>
+                <h2>Your Outreach Solution.</h2>
                 <p>Mass outreach is noise. The only emails that get replies are the ones that feel like they were written by someone who actually did the homework. We do the homework.</p>
             </div>
         </section>
@@ -746,12 +746,12 @@
         const arrows = [];
         const MAX = 26;
         let spawnTimer = 0;
-        const SPAWN_INTERVAL = 16;
+        const SPAWN_INTERVAL = 4;
 
         function spawnArrow() {
             const angle = Math.random() * Math.PI * 2;
-            const speed = 0.8 + Math.random() * 0.6;
-            const maxLength = 120 + Math.random() * 140;
+            const speed = 3.0 + Math.random() * 2.0;
+            const maxLength = 80 + Math.random() * 100;
             const curveType = Math.random();
             let angularVel;
             if (curveType < 0.3) angularVel = 0;
@@ -767,7 +767,7 @@
                 originX: CX + cos * t, originY: CY + sin * t,
                 currentAngle: angle, angularVel, speed, maxLength, thickness: GRID,
                 opacity: 0.8 + Math.random() * 0.2,
-                life: 0, maxLife: 180 + Math.random() * 120,
+                life: 0, maxLife: 80 + Math.random() * 50,
                 path: [], totalArcLen: 0, pathLengths: [],
             });
         }
@@ -904,7 +904,7 @@
                     }
                 }
                 cx.globalAlpha = 1;
-                prog += 0.8;
+                prog += 5.0;
                 if (prog > 450) prog = 0;
                 requestAnimationFrame(anim);
             }
@@ -950,12 +950,12 @@
                     from: reverse ? b : a,
                     to: reverse ? a : b,
                     t: 0,
-                    speed: 0.008 + Math.random() * 0.008,
+                    speed: 0.03 + Math.random() * 0.02,
                     size: 1.5 + Math.random() * 1.5,
                 });
             }
 
-            const CYCLE = 380, PAUSE = 120, TOTAL = CYCLE + PAUSE;
+            const CYCLE = 90, PAUSE = 50, TOTAL = CYCLE + PAUSE;
             let frame = 0;
             function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
 
@@ -1135,7 +1135,7 @@
             function sn(v) { return Math.round(v / G) * G; }
             const arr = [], checks = [];
             for (let i = 0; i < ROWS; i++) {
-                arr.push({ x: -40 - i * 20, y: YOFF + i * ROW_SPACING, length: 0, maxLength: ARROW_LEN, speed: 0.55 + Math.random() * 0.15, opacity: 0.85, reachedEnd: false });
+                arr.push({ x: -40 - i * 20, y: YOFF + i * ROW_SPACING, length: 0, maxLength: ARROW_LEN, speed: 2.2 + Math.random() * 0.6, opacity: 0.85, reachedEnd: false });
             }
             function drawPL(x0, y0, x1) {
                 let sx0 = sn(x0), sy0 = sn(y0), sx1 = sn(x1);
