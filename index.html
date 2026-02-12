@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPURINTEL | AI-Powered B2B Prospecting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>SpurIntel | Full-Service B2B Outbound Execution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&family=Rokkitt:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        h1, h2, h3 {
+            font-family: 'Rokkitt', serif;
+        }
         
         :root {
             --bg: #F3F3F3;
@@ -22,7 +26,7 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Space Mono', monospace;
             background: #d5d5d5;
             color: var(--black);
             line-height: 1.6;
@@ -31,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* ===================== PAGE FRAME (NeoNet-style) ===================== */
+        /* ===================== PAGE FRAME ===================== */
         .page-frame {
             max-width: 1280px;
             margin: 0 auto;
@@ -55,7 +59,6 @@
             z-index: 5;
         }
 
-        /* Secondary finer grid */
         .page-frame::after {
             content: "";
             position: absolute;
@@ -93,15 +96,40 @@
         }
         
         .logo {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.85rem;
+            font-family: 'Rokkitt', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--black);
             text-decoration: none;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
         }
+        .logo .logo-cap {
+            font-size: 1.45rem;
+        }
+
+        .footer-logo .logo-cap {
+            font-size: 1.05rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-family: 'Space Mono', monospace;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+        .nav-link:hover { color: var(--black); }
         
         .nav-cta {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Mono', monospace;
             font-weight: 600;
             font-size: 0.8125rem;
             background: var(--black);
@@ -158,21 +186,20 @@
             position: absolute;
             z-index: 10;
             background: var(--white);
-            padding: 1rem 1.5rem;
-            top: 50%; left: 52%;
+            padding: 1.25rem 2.5rem;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .hero-headline {
-            font-family: 'Press Start 2P', cursive;
-            font-size: clamp(1.3rem, 2.6vw, 1.75rem);
-            line-height: 2.2;
-            letter-spacing: 0.02em;
+            font-family: 'Rokkitt', serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.01em;
             color: var(--accent);
             white-space: nowrap;
         }
-        .hero-headline .headline-first { display: block; }
-        .hero-headline .headline-second { display: block; text-align: center; }
-
         /* ===================== CONTENT AREA ===================== */
         .content-area {
             position: relative;
@@ -208,9 +235,52 @@
         .hook p {
             font-size: 1.125rem;
             color: var(--gray);
-            max-width: 540px;
+            max-width: 720px;
             margin: 0 auto;
             line-height: 1.8;
+        }
+        .hook-tagline {
+            font-size: 1rem;
+            color: var(--gray-muted);
+            margin-top: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        /* ===================== STATS BAR ===================== */
+        .stats-bar {
+            padding: 0 2.5rem 2.5rem;
+            position: relative;
+            z-index: 3;
+        }
+        .stats-bar-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--gray-light);
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        }
+        .stat-item-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.375rem;
+        }
+        .stat-item-label {
+            font-size: 0.8125rem;
+            color: var(--gray-muted);
+            font-weight: 500;
+            line-height: 1.4;
         }
 
         /* ===================== DIVIDER ===================== */
@@ -220,7 +290,7 @@
             border-top: 1px solid var(--gray-rule);
         }
 
-        /* ===================== PILLARS ===================== */
+        /* ===================== HOW IT WORKS (PILLARS) ===================== */
         .pillars { padding: 2.5rem 2.5rem 5rem; }
         .pillars-header {
             max-width: 1100px;
@@ -236,7 +306,7 @@
             letter-spacing: -0.03em;
             line-height: 1.2;
             color: var(--black);
-            max-width: 400px;
+            max-width: 500px;
         }
         .pillars-header p {
             font-size: 0.9375rem;
@@ -278,13 +348,20 @@
             justify-content: center;
             flex-shrink: 0;
             overflow: hidden;
-            /* Seamless with card, no separate bg */
         }
         .pillar-visual canvas { display: block; }
 
         .pillar-body {
             padding: 1.75rem 2rem 2.25rem;
             border-top: 1px solid var(--gray-light);
+        }
+        .pillar-step {
+            font-family: 'Rokkitt', serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
         }
         .pillar h3 {
             font-size: 1.125rem;
@@ -298,19 +375,6 @@
             color: var(--gray);
             line-height: 1.7;
         }
-        .pillar-stat {
-            font-size: 2.75rem;
-            font-weight: 700;
-            color: var(--black);
-            letter-spacing: -0.03em;
-            margin: 0.5rem 0 0.125rem;
-            line-height: 1.1;
-        }
-        .pillar-stat-label {
-            font-size: 0.8125rem;
-            color: var(--gray-muted);
-            margin-bottom: 1rem;
-        }
 
         /* ===================== TESTIMONIAL ===================== */
         .testimonial { padding: 0 2.5rem 2rem; }
@@ -320,7 +384,6 @@
             position: relative;
             padding: 4.5rem 4rem;
         }
-        /* Corner brackets */
         .testimonial-inner::before,
         .testimonial-inner::after,
         .testimonial-bracket-bl,
@@ -405,6 +468,76 @@
             font-weight: 500;
         }
 
+        /* ===================== RESULTS SECTION ===================== */
+        .results {
+            padding: 3rem 2.5rem 4rem;
+        }
+        .results-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .results-header {
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+        .results-header h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: var(--black);
+            margin-bottom: 1rem;
+        }
+        .results-header p {
+            font-size: 1.0625rem;
+            color: var(--gray);
+            line-height: 1.75;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .results-card {
+            background: var(--surface);
+            border: 1px solid var(--gray-light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.15);
+        }
+        .results-card-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .results-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+        .results-card p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        .results-card-stat {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.25rem;
+        }
+        .results-card-stat-label {
+            font-size: 0.8125rem;
+            color: var(--gray-muted);
+            margin-bottom: 1rem;
+        }
+
         /* ===================== CASE STUDY ===================== */
         .case-study { padding: 0 2.5rem 5rem; }
         .case-study-inner {
@@ -422,9 +555,10 @@
         }
         .case-study-text { max-width: 540px; }
         .case-study-label {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.15em;
+            font-family: 'Rokkitt', serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             color: var(--accent);
             text-transform: uppercase;
             margin-bottom: 1.25rem;
@@ -484,7 +618,7 @@
             line-height: 1.7;
         }
         .cta-btn {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Mono', monospace;
             font-weight: 600;
             font-size: 0.9375rem;
             background: var(--black);
@@ -509,8 +643,9 @@
             align-items: center;
         }
         .footer-logo {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.5rem;
+            font-family: 'Rokkitt', serif;
+            font-size: 0.875rem;
+            font-weight: 700;
             color: var(--black);
             text-decoration: none;
             letter-spacing: 0.05em;
@@ -549,6 +684,10 @@
         .pillar.fade-in:nth-child(1) { transition-delay: 0s; }
         .pillar.fade-in:nth-child(2) { transition-delay: 0.15s; }
         .pillar.fade-in:nth-child(3) { transition-delay: 0.3s; }
+
+        .stat-item.fade-in:nth-child(1) { transition-delay: 0s; }
+        .stat-item.fade-in:nth-child(2) { transition-delay: 0.12s; }
+        .stat-item.fade-in:nth-child(3) { transition-delay: 0.24s; }
         
         .hero-visual {
             opacity: 0;
@@ -562,14 +701,14 @@
             animation: fadeInUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.5s forwards;
         }
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translate(-50%, -20%); }
-            to { opacity: 1; transform: translate(-50%, -35%); }
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
         
         @media (prefers-reduced-motion: reduce) {
             .fade-in, .fade-in-left, .fade-in-right { opacity: 1; transform: none; transition: none; }
             .hero-visual { opacity: 1; transform: none; animation: none; }
-            .headline-box { opacity: 1; transform: translate(-50%, -35%); animation: none; }
+            .headline-box { opacity: 1; transform: translate(-50%, -50%); animation: none; }
         }
         
         /* ===================== RESPONSIVE ===================== */
@@ -582,16 +721,20 @@
             .case-study-text { max-width: 100%; }
             .testimonial-content { flex-direction: column; gap: 2rem; }
             .testimonial-stat { text-align: left; }
+            .results-grid { grid-template-columns: 1fr; }
+            .stats-bar-inner { grid-template-columns: 1fr; max-width: 360px; }
         }
         @media (max-width: 900px) {
             .hero-visual { width: 500px; height: 380px; }
-            .hero-headline { font-size: 1rem; }
+            .hero-headline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
             .page-frame { border-left: none; border-right: none; }
             .header-inner { border-left: none; border-right: none; }
+            .nav-links { gap: 1rem; }
+            .nav-link { display: none; }
         }
         @media (max-width: 600px) {
             .hero-visual { width: 320px; height: 260px; }
-            .hero-headline { font-size: 0.6rem; }
+            .hero-headline { font-size: 0.75rem; }
             .page-footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
     </style>
@@ -599,8 +742,12 @@
 <body>
     <header>
         <div class="header-inner">
-            <a href="#" class="logo">SPURINTEL</a>
-            <a href="contact.html" class="nav-cta">Contact us</a>
+            <a href="#" class="logo"><span class="logo-cap">S</span>pur<span class="logo-cap">I</span>ntel</a>
+            <div class="nav-links">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#results" class="nav-link">Results</a>
+                <a href="contact.html" class="nav-cta">Get Started</a>
+            </div>
         </div>
     </header>
 
@@ -608,10 +755,10 @@
     
     <div class="hero-section">
         <section class="hero">
-                <div class="hero-visual" id="hero-visual">
+            <div class="hero-visual" id="hero-visual">
                 <canvas id="arrows-canvas"></canvas>
                 <div class="headline-box">
-                    <h1 class="hero-headline"><span class="headline-first">Revelutionize Your</span><span class="headline-second">Outreach</span></h1>
+                    <h1 class="hero-headline">We Research. We Send. You Close.</h1>
                 </div>
             </div>
         </section>
@@ -622,16 +769,34 @@
         <section class="hook fade-in">
             <div class="hook-inner">
                 <div class="hook-accent"></div>
-                <h2>Your Outreach Solution.</h2>
-                <p>Mass outreach is noise. The only emails that get replies are the ones that feel like they were written by someone who actually did the homework. We do the homework.</p>
+                <h2>Full-Service Outbound Execution</h2>
+                <p>SpurIntel becomes your on-demand outreach team. We handle everything from account research to multi-channel execution. Emails and LinkedIn messages sent on your behalf, delivering pre-qualified prospects ready for your sales team.</p>
+                <p class="hook-tagline">No tools to learn. No manual work required. No headcount to manage.<br>You point. We execute.</p>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="stats-bar-inner">
+                <div class="stat-item fade-in">
+                    <div class="stat-item-number">100%</div>
+                    <div class="stat-item-label">Done for You</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-item-number">10–15%</div>
+                    <div class="stat-item-label">Reply Rate</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-item-number">112 hrs</div>
+                    <div class="stat-item-label">Saved Per 50-Company Campaign</div>
+                </div>
             </div>
         </section>
 
         <hr class="section-divider">
         
-        <section class="pillars">
+        <section class="pillars" id="how-it-works">
             <div class="pillars-header">
-                <h2 class="fade-in-left">How we build outreach that converts</h2>
+                <h2 class="fade-in-left">From cold prospects to warm replies in three simple steps.</h2>
                 <p class="fade-in-right">Every campaign is research-driven, custom-built, and designed to start real conversations.</p>
             </div>
             <div class="pillars-grid">
@@ -640,8 +805,9 @@
                         <canvas id="research-canvas" width="320" height="220"></canvas>
                     </div>
                     <div class="pillar-body">
-                        <h3>Hyper-Personalized</h3>
-                        <p>Every email is written with deep company and contact research. We dig into the details others miss, like company news, LinkedIn activity and mutual connections. That makes your message feel personal.</p>
+                        <div class="pillar-step">01</div>
+                        <h3>We Research.</h3>
+                        <p>Deep account intelligence on every target company. We identify decision-makers, research company context, and build comprehensive dossiers with account-specific value props. Not generic templates. Genuine personalization backed by 50+ data points per prospect.</p>
                     </div>
                 </div>
                 
@@ -650,8 +816,9 @@
                         <canvas id="config-canvas" width="320" height="220"></canvas>
                     </div>
                     <div class="pillar-body">
-                        <h3>Custom Configured</h3>
-                        <p>Not a template. Not a tool. A system built around your company with your hooks, value props, voice, and ICP. Deep integration makes every touchpoint feel native.</p>
+                        <div class="pillar-step">02</div>
+                        <h3>We Send.</h3>
+                        <p>Multi-channel execution on your behalf. We send personalized emails and LinkedIn messages using our proprietary AI trained on elite B2B sales copy. Your prospects receive outreach that feels individually researched, because it is.</p>
                     </div>
                 </div>
                 
@@ -660,10 +827,9 @@
                         <canvas id="controlled-arrows-canvas" width="320" height="220"></canvas>
                     </div>
                     <div class="pillar-body">
-                        <h3>Outreach That Get Responses</h3>
-                        <div class="pillar-stat">10–15%</div>
-                        <div class="pillar-stat-label">reply rates on cold outreach</div>
-                        <p>Focused outreach that hits the mark every time. No spray and pray. Just precision. Industry average sits at 1–3%. The difference is depth.</p>
+                        <div class="pillar-step">03</div>
+                        <h3>You Close.</h3>
+                        <p>Pre-qualified warm replies delivered to your inbox. We handle everything from cold prospect to engaged lead. You focus exclusively on what matters: having conversations with buyers who already understand why you're relevant.</p>
                     </div>
                 </div>
             </div>
@@ -692,7 +858,31 @@
                 </div>
             </div>
         </section>
-        
+
+        <hr class="section-divider">
+
+        <section class="results" id="results">
+            <div class="results-inner">
+                <div class="results-header fade-in">
+                    <h2>Proven Results in Your Industry</h2>
+                    <p>Our proprietary system consistently delivers reply rates 10x higher than the industry average of 1–3%. The difference is research depth. Every message demonstrates you've done your homework.</p>
+                </div>
+                <div class="results-grid">
+                    <div class="results-card fade-in">
+                        <div class="results-card-label">Time Savings</div>
+                        <div class="results-card-stat">3–5 days</div>
+                        <div class="results-card-stat-label">campaign turnaround</div>
+                        <p>What takes agencies 4–6 weeks, we deliver in days. No hiring, no ramp time, no management overhead. That's VP Sales time redirected from research to revenue.</p>
+                    </div>
+                    <div class="results-card fade-in">
+                        <div class="results-card-label">Continuous Improvement</div>
+                        <h3>The System Gets Smarter Every Month</h3>
+                        <p>Unlike project-based work, our retainer model means we learn which messaging resonates, refine persona targeting, and compound results over time. Month 12 performance is dramatically better than Month 1. Agencies starting from scratch each time can never deliver that.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="case-study">
             <div class="case-study-inner fade-in">
                 <div class="case-study-text">
@@ -707,17 +897,17 @@
             </div>
         </section>
         
-        <section class="cta" id="contact">
+        <section class="cta" id="get-started">
             <div class="cta-inner fade-in">
-                <h2>Ready to stop blending in?</h2>
-                <p>Tell us who you're trying to reach. We'll show you what real personalization looks like.</p>
-                <a href="contact.html" class="cta-btn">Get in touch</a>
+                <h2>Ready to Stop Researching and Start Closing?</h2>
+                <p>Book a 20-minute call to see if SpurIntel is right for your team. No pressure, no obligation. Just an honest conversation about your goals.</p>
+                <a href="contact.html" class="cta-btn">Schedule Discovery Call</a>
             </div>
         </section>
 
         <footer class="page-footer">
-            <a href="#" class="footer-logo">SPURINTEL</a>
-            <span class="footer-text">&copy; 2025 SPURINTEL</span>
+            <a href="#" class="footer-logo"><span class="logo-cap">S</span>pur<span class="logo-cap">I</span>ntel</a>
+            <span class="footer-text">&copy; 2025 SpurIntel</span>
             <a href="mailto:caiden@spurintel.com" class="footer-link">caiden@spurintel.com</a>
         </footer>
 
@@ -736,7 +926,7 @@
             W = canvas.width = container.offsetWidth * 1.8;
             H = canvas.height = container.offsetHeight * 1.6;
             CX = W / 2; CY = H / 2;
-            CLEAR_W = W * 0.30; CLEAR_H = H * 0.12;
+            CLEAR_W = W * 0.35; CLEAR_H = H * 0.08;
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -940,7 +1130,6 @@
                 [5,7],[6,8],
             ];
 
-            // Data particles that flow along connections
             const particles = [];
             const MAX_PARTICLES = 12;
 
@@ -973,7 +1162,6 @@
                 const connProg = Math.max(0, (progress - 0.15) / 0.85);
                 const connCount = Math.floor(easeOut(Math.min(connProg * 1.5, 1)) * connections.length);
 
-                // Draw connections
                 for (let i = 0; i < connCount; i++) {
                     const [a, b] = connections[i];
                     if (a >= nodeCount || b >= nodeCount) continue;
@@ -984,7 +1172,6 @@
                     const ex = na.x + (nb.x - na.x) * cp;
                     const ey = na.y + (nb.y - na.y) * cp;
 
-                    // Connection line
                     const isPrimary = a === 0 && b <= 4;
                     cx.globalAlpha = isPrimary ? 0.35 * cp : 0.15 * cp;
                     cx.strokeStyle = '#1a1a1a';
@@ -994,7 +1181,6 @@
                     cx.lineTo(ex, ey);
                     cx.stroke();
 
-                    // Drawing tip
                     if (cp < 0.92) {
                         cx.globalAlpha = 0.7 * (1 - cp);
                         cx.fillStyle = '#3494d4';
@@ -1004,12 +1190,8 @@
                     }
                 }
 
-                // Data particles (only when network is mostly built)
                 if (progress > 0.5) {
-                    // Spawn
                     if (particles.length < MAX_PARTICLES && Math.random() < 0.06) spawnParticle();
-
-                    // Update & draw
                     for (let i = particles.length - 1; i >= 0; i--) {
                         const p = particles[i];
                         p.t += p.speed * dt;
@@ -1019,21 +1201,18 @@
                         const px = na.x + (nb.x - na.x) * p.t;
                         const py = na.y + (nb.y - na.y) * p.t;
 
-                        // Glow
                         cx.globalAlpha = 0.15;
                         cx.fillStyle = '#3494d4';
                         cx.beginPath();
                         cx.arc(px, py, p.size * 3, 0, Math.PI * 2);
                         cx.fill();
 
-                        // Core
                         cx.globalAlpha = 0.8;
                         cx.fillStyle = '#3494d4';
                         cx.beginPath();
                         cx.arc(px, py, p.size, 0, Math.PI * 2);
                         cx.fill();
 
-                        // Trail
                         const trailLen = 3;
                         for (let j = 1; j <= trailLen; j++) {
                             const tt = p.t - j * 0.02;
@@ -1049,7 +1228,6 @@
                     }
                 }
 
-                // Draw nodes
                 for (let i = 0; i < nodeCount; i++) {
                     const nd = nodesDef[i];
                     const nl = Math.min((progress * nodesDef.length - i) * 4, 1);
@@ -1057,7 +1235,6 @@
                     const s = easeOut(Math.max(0, Math.min(nl, 1)));
 
                     if (nd.type === 'center') {
-                        // Pulsing glow
                         const pulse = 1 + Math.sin(frame * 0.04) * 0.15;
                         cx.globalAlpha = 0.08 * s;
                         cx.fillStyle = '#3494d4';
@@ -1068,26 +1245,22 @@
                         cx.beginPath();
                         cx.arc(nd.x, nd.y, 14 * s, 0, Math.PI * 2);
                         cx.fill();
-                        // Solid center
                         cx.globalAlpha = 0.9 * s;
                         cx.fillStyle = '#1a1a1a';
                         cx.beginPath();
                         cx.arc(nd.x, nd.y, nd.r * s, 0, Math.PI * 2);
                         cx.fill();
-                        // Blue core
                         cx.globalAlpha = 0.8 * s;
                         cx.fillStyle = '#3494d4';
                         cx.beginPath();
                         cx.arc(nd.x, nd.y, 3.5 * s, 0, Math.PI * 2);
                         cx.fill();
                     } else if (nd.type === 'primary') {
-                        // Filled node
                         cx.globalAlpha = 0.8 * s;
                         cx.fillStyle = '#1a1a1a';
                         cx.beginPath();
                         cx.arc(nd.x, nd.y, nd.r * s, 0, Math.PI * 2);
                         cx.fill();
-                        // White inner dot
                         cx.globalAlpha = 0.9 * s;
                         cx.fillStyle = '#fafafa';
                         cx.beginPath();
@@ -1101,17 +1274,15 @@
                         cx.fill();
                     }
 
-                    // Labels
                     if (nd.label && s > 0.6) {
                         cx.globalAlpha = (s - 0.6) / 0.4 * 0.6;
                         cx.fillStyle = '#1a1a1a';
-                        cx.font = '600 7.5px Inter, sans-serif';
+                        cx.font = '600 7.5px Space Mono, monospace';
                         cx.textAlign = 'center';
                         cx.fillText(nd.label, nd.x, nd.y + nd.r + 14);
                     }
                 }
 
-                // Idle: gentle blue pulse on primary connections
                 if (progress >= 1) {
                     const pulse = Math.sin(frame * 0.03) * 0.06 + 0.06;
                     for (let i = 0; i < 4; i++) {
@@ -1190,6 +1361,17 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { root: null, rootMargin: '0px', threshold: 0.1 });
         document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+        // ============ SMOOTH SCROLL FOR NAV LINKS ============
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
     </script>
 </body>
 </html>
