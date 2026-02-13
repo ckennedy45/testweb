@@ -250,24 +250,24 @@
             margin: 0 auto 2rem;
         }
         .hook h2 {
-            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 700;
             letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             line-height: 1.2;
             color: var(--black);
         }
         .hook p {
-            font-size: 1.125rem;
+            font-size: 0.9375rem;
             color: var(--gray);
             max-width: 720px;
             margin: 0 auto;
             line-height: 1.8;
         }
         .hook-tagline {
-            font-size: 1rem;
+            font-size: 0.875rem;
             color: var(--gray-muted);
-            margin-top: 1.5rem;
+            margin-top: 1.25rem;
             font-weight: 500;
             letter-spacing: 0.01em;
         }
@@ -292,8 +292,14 @@
             border: 1px solid var(--gray-light);
             border-radius: 12px;
             box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-item:hover {
+            border-color: #8B3A3A;
+            box-shadow: 4px 4px 0px #8B3A3A;
         }
         .stat-item-number {
+            font-family: 'Rokkitt', serif;
             font-size: 2.25rem;
             font-weight: 700;
             color: var(--black);
@@ -303,8 +309,8 @@
         }
         .stat-item-label {
             font-size: 0.8125rem;
-            color: var(--gray-muted);
-            font-weight: 500;
+            color: var(--gray-dark);
+            font-weight: 600;
             line-height: 1.4;
         }
 
@@ -361,8 +367,8 @@
             overflow: hidden;
         }
         .pillar:hover {
-            border-color: #ccc;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+            border-color: #8B3A3A;
+            box-shadow: 5px 5px 0px #8B3A3A;
         }
 
         .pillar-visual {
@@ -389,11 +395,11 @@
             margin-bottom: 0.75rem;
         }
         .pillar h3 {
-            font-size: 1.125rem;
+            font-size: 1.75rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--black);
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
         .pillar p {
             font-size: 0.9375rem;
@@ -431,13 +437,6 @@
             gap: 3.5rem;
         }
         .testimonial-quote { max-width: 680px; }
-        .testimonial-mark {
-            font-size: 5rem;
-            line-height: 0.8;
-            color: var(--gray-light);
-            font-family: Georgia, serif;
-            margin-bottom: 0.5rem;
-        }
         .testimonial-text {
             font-size: 1.375rem;
             font-weight: 500;
@@ -478,6 +477,7 @@
             padding-top: 1rem;
         }
         .testimonial-stat-number {
+            font-family: 'Rokkitt', serif;
             font-size: 3.5rem;
             font-weight: 700;
             color: var(--black);
@@ -529,6 +529,11 @@
             border-radius: 16px;
             padding: 2.5rem;
             box-shadow: 5px 5px 0px rgba(0,0,0,0.15);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .results-card:hover {
+            border-color: #8B3A3A;
+            box-shadow: 5px 5px 0px #8B3A3A;
         }
         .results-card-label {
             font-size: 0.75rem;
@@ -551,6 +556,7 @@
             line-height: 1.7;
         }
         .results-card-stat {
+            font-family: 'Rokkitt', serif;
             font-size: 2.25rem;
             font-weight: 700;
             color: var(--black);
@@ -577,6 +583,11 @@
             justify-content: space-between;
             gap: 3rem;
             box-shadow: 5px 5px 0px rgba(0,0,0,0.15);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .case-study-inner:hover {
+            border-color: #8B3A3A;
+            box-shadow: 5px 5px 0px #8B3A3A;
         }
         .case-study-text { max-width: 540px; }
         .case-study-label {
@@ -796,7 +807,7 @@
                 <div class="hook-accent"></div>
                 <h2>Full-Service Outbound Execution</h2>
                 <p>SpurIntel becomes your on-demand outreach team. We handle everything from account research to multi-channel execution. Emails and LinkedIn messages sent on your behalf, delivering pre-qualified prospects ready for your sales team.</p>
-                <p class="hook-tagline">No tools to learn. No manual work required. No headcount to manage.<br>You point. We execute.</p>
+                <p class="hook-tagline">No tools to learn. No manual work required. No headcount to manage.<br><strong>You point. We execute.</strong></p>
             </div>
         </section>
 
@@ -866,8 +877,7 @@
                 <div class="testimonial-bracket-br"></div>
                 <div class="testimonial-content">
                     <div class="testimonial-quote">
-                        <div class="testimonial-mark">&ldquo;</div>
-                        <p class="testimonial-text">SPURINTEL didn't just send emails for us. They learned our product, our market, and our voice. The outreach they built felt like it came from our own team. The results spoke for themselves.</p>
+                        <p class="testimonial-text">&ldquo;SPURINTEL didn't just send emails for us. They learned our product, our market, and our voice. The outreach they built felt like it came from our own team. The results spoke for themselves.&rdquo;</p>
                         <div class="testimonial-author">
                             <div class="testimonial-avatar">CK</div>
                             <div>
@@ -875,10 +885,6 @@
                                 <div class="testimonial-role">Operations Manager, MaiaEdge</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="testimonial-stat">
-                        <div class="testimonial-stat-number">15%</div>
-                        <div class="testimonial-stat-label">Reply Rate</div>
                     </div>
                 </div>
             </div>
@@ -1127,7 +1133,7 @@
                     }
                 }
                 cx.globalAlpha = 1;
-                prog += 5.0 * dt;
+                prog += 2.0 * dt;
                 if (prog > 450) prog = 0;
                 requestAnimationFrame(anim);
             }
@@ -1172,12 +1178,12 @@
                     from: reverse ? b : a,
                     to: reverse ? a : b,
                     t: 0,
-                    speed: 0.03 + Math.random() * 0.02,
+                    speed: 0.015 + Math.random() * 0.01,
                     size: 1.5 + Math.random() * 1.5,
                 });
             }
 
-            const CYCLE = 90, PAUSE = 50, TOTAL = CYCLE + PAUSE;
+            const CYCLE = 200, PAUSE = 100, TOTAL = CYCLE + PAUSE;
             let frame = 0;
             let lastNetTime = performance.now();
             function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
